@@ -12,6 +12,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extend: false })); //Define o middleware para processar dados de formulário recebidos nas requisições.
 
+// Routes
+const router = require("./router/Router.js");
+app.use(router);
+
 app.listen(port, () => {
   console.log(`App rodando ba porta ${port}`);
 });
