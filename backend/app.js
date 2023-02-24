@@ -12,7 +12,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extend: false })); //Define o middleware para processar dados de formulário recebidos nas requisições.
 
-// Routes
+//Solving cors || Executando requisições pelo mesmo domínio
+app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //crediantals: true = o servidor pode enviar e receber cookies e cabeçalhos de autenticação.
+
+//Upload directory
+app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); //static = pasta terá arquivos estáticos|| Qualquer arquivo que esteja dentro da pasta /uploads poderá ser acessado publicamente no endereço http://localhost:3000/uploads/<nome-do-arquivo>.
+
+
+// DB conection
+require("./config/db.js")
+
+// Routes, qualquer arquivo que esteja dentro da pasta /uploads poderá ser acessado publicamente no endereço http://localhost:3000/uploads/<nome-do-arquivo>.
 const router = require("./router/Router.js");
 app.use(router);
 
