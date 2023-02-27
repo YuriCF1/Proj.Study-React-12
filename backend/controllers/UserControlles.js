@@ -15,9 +15,35 @@ const generateToken = (id) => {
 
 //Register user and sign in
 const register = async (req, res) => {
-  res.send("Registro");
+  const { name, email, password } = req.body;
+
+  //Check if user exists
+  const user = await User.findOne({ email }); //findOne = método mangoose
+
+  if (user) {
+    res.status(422).json({ errors: ["O email utilizado já foi cadastrado"] });
+    return;
+  }
+
+  //Generate password hash
+  //Criptografando a senha
+  const salt = await bcrypt.genSalt();
+  const passwordHash = await bcrypt.hash(password, salt);
+
+  //Creating user
+  const newUser = await User.create({ name, email, password: passwordHash }); //create = método mangoose
+
+  //If user was created sucessfully, return the token
+  if (!newUser) {
+    res.status.json({ errors: ["Houve um erro, por favor, tente mais tarde"] });
+  }
+
+  res.status(200).json({
+    _id: newUser._id,
+    token: generateToken(newUser._id),
+  });
 };
 
 module.exports = {
-    register, 
-}
+  register,
+};
