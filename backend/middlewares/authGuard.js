@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 
 const authGuard = async (req, res, next) => {
-  const authHeader = req.headers("authorization");
+  const authHeader = req.header("authorization");
   const token = authHeader && authHeader.split(" ")[1];
 
   //O token aparece assim: Bearer wh193h129d1829hd12, splitando pelo espaço, posso obter o segundo resultado (Sendo 'Bearer' o tipo de requisição HTTP)
@@ -18,7 +18,7 @@ const authGuard = async (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(401).json9({ erros: ["Token inválido"] });
+    res.status(401).json({ erros: ["Token inválido"] });
   }
 };
 
