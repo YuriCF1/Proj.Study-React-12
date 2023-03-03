@@ -16,7 +16,8 @@ const imageStorage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); //Se for um sistema muito grande, pode-ser usar a biblioteca uuid
+    cb(null, Date.now() + path.extname(file.originalname)); //Se for um sistema muito grande, pode-ser usar a biblioteca uuid. 
+    //path.extname(file.originalname) | path = pacote node para lidar com diretório | extname = pegando a extensão do arquivo | file.originalname = pegando o nome original do arquivo
   },
 });
 
