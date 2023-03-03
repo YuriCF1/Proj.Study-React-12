@@ -1,4 +1,4 @@
-const multer = require("muler"); //Lida com uploads de arquivos
+const multer = require("multer"); //Lida com uploads de arquivos
 const path = require("path"); //Módulo padrão do node, que trabalha com caminhos padrões. Métodos e diretórios da aplicação
 
 // Destination to store image
@@ -25,7 +25,7 @@ const imageUpload = multer({
   //Validação da imagem e definir onde será salva
   storage: imageStorage,
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg)$/)) {
+    if (!file.originalname.match(/\.(png|jpg)$/)) { //Fazendo regex para descobrir se no nome tem png ou jpg
       //upload only png and jpg format
       return cb(new Error("Por favor, envie apenas png ou jpg"));
     }
