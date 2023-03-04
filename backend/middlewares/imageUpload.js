@@ -12,7 +12,7 @@ const imageStorage = multer.diskStorage({
       folder = "photos";
     }
 
-    callback(null, `uploads/${folder}`);
+    callback(null, `uploads/${folder}`); //Null na frente das callbacks, quer dizer que nenhum erro foi encontrado
   },
 
   filename: (req, file, cb) => {
