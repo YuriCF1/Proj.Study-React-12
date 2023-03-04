@@ -12,7 +12,7 @@ const userSchema = new Schema(
     bio: String,
   },
   {
-    temestamps: true, //Criando dois campos de tempo, created At | updated At
+    timestamps: true, //Criando dois campos de tempo, created At | updated At
   }
 );
 
