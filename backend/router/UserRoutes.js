@@ -7,6 +7,7 @@ const {
   login,
   getCurrentUser,
   update,
+  getUserById,
 } = require("../controllers/UserControlles");
 
 //Middlewares
@@ -33,5 +34,8 @@ router.put(
 ); //put = verbo de atualização
 //Salvando na coleção 'profileImage na requisição, que envia o nome do arquivo
 //O método single() do multer é responsável por definir o nome do campo que será utilizado para fazer o upload do arquivo.
+
+router.get("/:id", getUserById )
+
 
 module.exports = router;
