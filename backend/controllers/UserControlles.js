@@ -132,12 +132,12 @@ const getUserById = async (req, res) => {
     );
 
     if (!user) {
-      res.status(404).json({ erros: ["Usuário não encontrado 2"] });
+      res.status(404).json({ erros: ["Usuário não encontrado 2"] }); //Usuário com ID inexistente
     }
 
     res.status(200).json(user);
   } catch (error) {
-    res.status(404).json({ errors: ["Usuário não encontrado"] });
+    res.status(404).json({ errors: ["Usuário não encontrado"] }); //ID incoerente
     return;
   }
 };
