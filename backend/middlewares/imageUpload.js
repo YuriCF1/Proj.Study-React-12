@@ -3,18 +3,20 @@ const path = require("path"); //Módulo padrão do node, que trabalha com caminh
 
 // Destination to store image
 const imageStorage = multer.diskStorage({
+  //Define destiny
   destination: (req, res, callback) => {
     let folder = "";
-
+    
     if (req.baseUrl.includes("users")) {
       folder = "users";
     } else if (req.baseUrl.includes("photos")) {
       folder = "photos";
     }
-
+    
     callback(null, `uploads/${folder}`); //Null na frente das callbacks, quer dizer que nenhum erro foi encontrado
   },
-
+  
+  //Define name of the file
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); //Se for um sistema muito grande, pode-ser usar a biblioteca uuid. 
     //path.extname(file.originalname) | path = pacote node para lidar com diretório | extname = pegando a extensão do arquivo | file.originalname = pegando o nome original do arquivo
