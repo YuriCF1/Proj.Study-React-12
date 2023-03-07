@@ -1,6 +1,6 @@
-const { body } = require("express-validation");
+const { body } = require("express-validator");
 
-const photoInserValidation = () => {
+const photoInsertValidation = () => {
   return [
     body("title")
       .not()
@@ -8,7 +8,7 @@ const photoInserValidation = () => {
       .withMessage("O título é obrigatório")
       .isString()
       .withMessage("O título é obrigatório")
-      .isLenght({ min: 3 })
+      .isLength({ min: 3 })
       .withMessage(" O título precisa ter no mínimo 3 caracteres"),
     body("image").custom((value, { req }) => {
       if (!req.file) {
@@ -21,6 +21,6 @@ const photoInserValidation = () => {
 };
 
 module.exports = {
-    photoInserValidation,
+  photoInsertValidation,
 
 }
