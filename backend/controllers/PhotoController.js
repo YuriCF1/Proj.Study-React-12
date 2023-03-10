@@ -46,7 +46,14 @@ const deletePhoto = async (req, res) => {
     res.status.json({
       errors: ["Ocorreu um erro, por favor, tente novamente mais tarde"],
     });
+    return;
   }
+
+  await Photo.findByIdAndDelete(photo._id);
+
+  //O Id eu posso usar para deletar em uma list ano front, sem precisar fazer outra requisição par atrazer as fotos atualizadas
+  //A mensagem para pode mandar mensagem de feedback para exibir no front
+  res.status(200).json({ id: photo.id, message: "Foto excluída com sucesso" }); 
 };
 
 module.exports = { insertPhoto };
