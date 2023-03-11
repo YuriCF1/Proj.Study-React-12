@@ -33,27 +33,35 @@ const insertPhoto = async (req, res) => {
 const deletePhoto = async (req, res) => {
   const { id } = req.params;
   const reqUser = req.user;
-  const photo = Photo.findById(mongoose.Types.ObjectId(id));
+  
+  try {
+    const photo = await Photo.findById(mongoose.Types.ObjectId(id)); //Preciso colocar ela aqui, para aguar a resposta
 
-  //Check if photo exists
-  if (!photo) {
-    res.status(404).json({ errors: ["Foto não encontrada"] });
-    return;
+    //Check if photo exists
+    if (!photo) {
+      res.status(404).json({ errors: ["Foto não encontrada"] });
+      return;
+    }
+
+    //Check if photo belongs to user
+    if (!photo.userId.equals(reqUser._id)) {
+      res.status.json({
+        errors: ["Ocorreu um erro, por favor, tente novamente mais tarde"],
+      });
+      return;
+    }
+
+    await Photo.findByIdAndDelete(photo._id);
+
+    //O Id eu posso usar para deletar em uma list ano front, sem precisar fazer outra requisição par atrazer as fotos atualizadas
+    //A mensagem para pode mandar mensagem de feedback para exibir no front
+    res
+      .status(200)
+      .json({ id: photo.id, message: "Foto excluída com sucesso" });
+
+  } catch (errors) {
+    res.status(404).json({errors: "Foto não encontrada" });
   }
-
-  //Check if photo belongs to user
-  if (!photo.userId.equals(req.user._id)) {
-    res.status.json({
-      errors: ["Ocorreu um erro, por favor, tente novamente mais tarde"],
-    });
-    return;
-  }
-
-  await Photo.findByIdAndDelete(photo._id);
-
-  //O Id eu posso usar para deletar em uma list ano front, sem precisar fazer outra requisição par atrazer as fotos atualizadas
-  //A mensagem para pode mandar mensagem de feedback para exibir no front
-  res.status(200).json({ id: photo.id, message: "Foto excluída com sucesso" }); 
 };
 
-module.exports = { insertPhoto };
+module.exports = { insertPhoto, deletePhoto };
