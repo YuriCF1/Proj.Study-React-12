@@ -19,6 +19,7 @@ router.post(
   validate,
   insertPhoto,
 );
+
 router.delete("/:id", authGuard, deletePhoto)
 
 module.exports = router;
