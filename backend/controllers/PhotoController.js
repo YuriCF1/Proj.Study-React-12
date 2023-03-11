@@ -33,7 +33,7 @@ const insertPhoto = async (req, res) => {
 const deletePhoto = async (req, res) => {
   const { id } = req.params;
   const reqUser = req.user;
-  
+
   try {
     const photo = await Photo.findById(mongoose.Types.ObjectId(id)); //Preciso colocar ela aqui, para aguar a resposta
 
@@ -58,10 +58,19 @@ const deletePhoto = async (req, res) => {
     res
       .status(200)
       .json({ id: photo.id, message: "Foto excluída com sucesso" });
-
   } catch (errors) {
-    res.status(404).json({errors: "Foto não encontrada" });
+    res.status(404).json({ errors: "Foto não encontrada" });
   }
 };
 
-module.exports = { insertPhoto, deletePhoto };
+//Get all photosaaaaaaaaaaaaaaaaa
+
+const getAllPhotos = async (req, res) => {
+  const photos = await Photo.find({})
+    .sort([["createdAt", -1]]) //Puxando as fotos mais novas no topo
+    .exec(); //Executar
+
+    return res.status(200).json(photos)
+};
+
+module.exports = { insertPhoto, deletePhoto, getAllPhotos };
