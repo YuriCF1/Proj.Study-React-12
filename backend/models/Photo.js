@@ -9,9 +9,10 @@ const photoSchema = new Schema(
     comments: Array,
     userId: mongoose.ObjectId, //Criando o userId do mangoose
     userName: String,
+    //_id = Created automatically
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 
