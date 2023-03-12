@@ -63,14 +63,22 @@ const deletePhoto = async (req, res) => {
   }
 };
 
-//Get all photosaaaaaaaaaaaaaaaaa
-
+//Get all photos
 const getAllPhotos = async (req, res) => {
   const photos = await Photo.find({})
     .sort([["createdAt", -1]]) //Puxando as fotos mais novas no topo
     .exec(); //Executar
 
-    return res.status(200).json(photos)
+  return res.status(200).json(photos);
 };
 
-module.exports = { insertPhoto, deletePhoto, getAllPhotos };
+//Get user photos
+const getUserPhotos = async (req, res) => {
+  const { id } = req.params; //Pegando id do usuário da url. Se for da requisição, seria as minhas fotos
+  const photos = await Photo.find({ userId: id }) //Achando as fotos pelos userId, do perfil do usuário que foi cliado
+    .sort([["createdAt", -1]])
+    .exec();
+  return res.status(200).json(photos);
+};
+
+module.exports = { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos };
