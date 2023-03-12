@@ -2,6 +2,7 @@ const Photo = require("../models/Photo");
 const User = require("../models/User");
 
 const mongoose = require("mongoose");
+// const { check } = require("express-validator"); ??
 
 //Criar funções de foto
 const insertPhoto = async (req, res) => {
@@ -31,7 +32,7 @@ const insertPhoto = async (req, res) => {
 
 //Remove photo from db
 const deletePhoto = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //= Id na URL
   const reqUser = req.user;
 
   try {
@@ -53,7 +54,7 @@ const deletePhoto = async (req, res) => {
 
     await Photo.findByIdAndDelete(photo._id);
 
-    //O Id eu posso usar para deletar em uma list ano front, sem precisar fazer outra requisição par atrazer as fotos atualizadas
+    //O Id eu posso usar para deletar em uma list no front, sem precisar fazer outra requisição par atrazer as fotos atualizadas
     //A mensagem para pode mandar mensagem de feedback para exibir no front
     res
       .status(200)
@@ -81,4 +82,24 @@ const getUserPhotos = async (req, res) => {
   return res.status(200).json(photos);
 };
 
-module.exports = { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos };
+//Get photo by id
+const getPhotoById = async (req, res) => {
+  const { id } = req.params;
+  const photo = await Photo.findById(mongoose.Types.ObjectId(id));
+
+  // Check if photos exists
+  if (!photo) {
+    res.status(404).json({ errros: ["Foto não encontrada"] });
+    return;
+  }
+
+  res.status(200).json(photo);
+};
+
+module.exports = {
+  insertPhoto,
+  deletePhoto,
+  getAllPhotos,
+  getUserPhotos,
+  getPhotoById,
+};
