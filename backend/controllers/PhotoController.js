@@ -85,7 +85,7 @@ const getUserPhotos = async (req, res) => {
 //Get photo by id
 const getPhotoById = async (req, res) => {
   const { id } = req.params;
-  const photo = await Photo.findById(mongoose.Types.ObjectId(id));
+  const photo = await Photo.findById(mongoose.Types.ObjectId(id)); //Não é necessário converter o id para ObjectId, pois o Id já foi definido como ObjectId no Schema
 
   // Check if photos exists
   if (!photo) {
@@ -140,3 +140,7 @@ module.exports = {
   getPhotoById,
   updatePhoto,
 };
+
+
+//Não há movimentação, apenas na praça, porém não muito
+//As rondas não são frequentes, só o perigo
