@@ -160,6 +160,40 @@ const likePhoto = async (req, res) => {
     .json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida" });
 };
 
+//Comment functionality
+const commentingPhoto = async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  const reqUser = req.user;
+
+  const user = await User.findById(reqUser._id); //Para pegar outros dados do usuário
+
+  const photo = await Photo.findById(id);
+
+  //Check if photo exists
+  if (!photo) {
+    res.status(404).json({ errors: ["Foto não encontrada"] });
+    return;
+  }
+
+  //Putting comments in the array of comments, with useful info about user to frontend
+  const userComment = {
+    comment,
+    userName: user.name,
+    userImage: user.profileImage,
+    userId: user._id,
+  };
+
+  photo.comments.push(userComment);
+
+  await photo.save();
+
+  res.status(200).json({
+    comment: userComment,
+    message: "O comentário foi adicionar com sucesso",
+  });
+};
+
 module.exports = {
   insertPhoto,
   deletePhoto,
@@ -168,6 +202,7 @@ module.exports = {
   getPhotoById,
   updatePhoto,
   likePhoto,
+  commentingPhoto
 };
 
 //Não há movimentação, apenas na praça, porém não muito
