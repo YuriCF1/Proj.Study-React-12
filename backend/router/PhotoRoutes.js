@@ -10,12 +10,14 @@ const {
   getPhotoById,
   updatePhoto,
   likePhoto,
+  commentingPhoto,
 } = require("../controllers/PhotoController");
 
 //Middlewares
 const {
   photoInsertValidation,
   photoUpdateValidation,
+  comentsValidation,
 } = require("../middlewares/photoValidation");
 const authGuard = require("../middlewares/authGuard");
 const validate = require("../middlewares/handleValidation"); //Valida se foi retornado erros, de acordo com od  middlewares antecessores
@@ -37,5 +39,6 @@ router.get("/user/:id", authGuard, getUserPhotos); //"Cuidado com a ordem, pois 
 router.get("/:id", authGuard, getPhotoById);
 router.put("/:id", authGuard, photoUpdateValidation(), validate, updatePhoto);
 router.put("/like/:id", authGuard, likePhoto);
+router.put("/coment/:id", authGuard, comentsValidation(), validate, commentingPhoto);
 
 module.exports = router;
