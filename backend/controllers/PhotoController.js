@@ -102,7 +102,7 @@ const updatePhoto = async (req, res) => {
   const { title } = req.body;
 
   const reqUser = req.user;
-  
+
   const photo = await Photo.findById(id);
 
   //Check if photo exists
@@ -120,16 +120,44 @@ const updatePhoto = async (req, res) => {
   }
 
   if (!title) {
-    res.status(422).json({ photo, message: "Title não veio no body", title, id });
+    res
+      .status(422)
+      .json({ photo, message: "Title não veio no body", title, id });
     return;
-    
   } else {
     photo.title = title;
   }
 
   await photo.save();
 
-  res.status(200).json({ photo, message: "Foto atualizada com sucesso"});
+  res.status(200).json({ photo, message: "Foto atualizada com sucesso" });
+};
+
+//Like funcionality
+const likePhoto = async (req, res) => {
+  const { id } = req.params;
+  const reqUser = req.user;
+  const photo = await Photo.findById(id);
+
+  //Checks if the photo exists
+  if (!photo) {
+    res.status(404).json({ errors: ["Foto não encontrada"] });
+    return;
+  }
+
+  // Checks if user already liked the photo
+  if (photo.likes.includes(reqUser._id)) {
+    res.status(422).json({ errors: ["Foto já curtida"], photo });
+    return;
+  }
+
+  //Put user id in likes array
+  photo.likes.push(reqUser._id);
+  photo.save();
+
+  res
+    .status(200)
+    .json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida" });
 };
 
 module.exports = {
@@ -139,8 +167,8 @@ module.exports = {
   getUserPhotos,
   getPhotoById,
   updatePhoto,
+  likePhoto,
 };
-
 
 //Não há movimentação, apenas na praça, porém não muito
 //As rondas não são frequentes, só o perigo
