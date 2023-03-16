@@ -194,6 +194,14 @@ const commentingPhoto = async (req, res) => {
   });
 };
 
+//Search photo by title
+const searchPhotos = async (req, res) => {
+  const { q } = req.query; //Query string, não faz parte da URL
+  const photos = await Photo.find({ title: new RegExp(q, "i") }).exec(); //Buscando qualquer título que contenha q. "i", ignorando case sensitive
+
+  res.status(200).json(photos);
+};
+
 module.exports = {
   insertPhoto,
   deletePhoto,
@@ -202,7 +210,8 @@ module.exports = {
   getPhotoById,
   updatePhoto,
   likePhoto,
-  commentingPhoto
+  commentingPhoto,
+  searchPhotos,
 };
 
 //Não há movimentação, apenas na praça, porém não muito
