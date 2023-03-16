@@ -11,6 +11,7 @@ const {
   updatePhoto,
   likePhoto,
   commentingPhoto,
+  searchPhotos,
 } = require("../controllers/PhotoController");
 
 //Middlewares
@@ -36,9 +37,17 @@ router.post(
 router.delete("/:id", authGuard, deletePhoto);
 router.get("/", authGuard, getAllPhotos);
 router.get("/user/:id", authGuard, getUserPhotos); //"Cuidado com a ordem, pois talvez o express reconheça 'user' como id". Porém, mudei a rota e deu certo
+router.get("/search", authGuard, searchPhotos);
+
 router.get("/:id", authGuard, getPhotoById);
 router.put("/:id", authGuard, photoUpdateValidation(), validate, updatePhoto);
 router.put("/like/:id", authGuard, likePhoto);
-router.put("/coment/:id", authGuard, comentsValidation(), validate, commentingPhoto);
+router.put(
+  "/coment/:id",
+  authGuard,
+  comentsValidation(),
+  validate,
+  commentingPhoto
+);
 
 module.exports = router;
