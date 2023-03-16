@@ -93,6 +93,7 @@ const update = async (req, res) => {
 
   const reqUser = req.user;
 
+  //Não é necessário converter o id para ObjectId, pois o Id já foi definido como ObjectId no Schema
   const user = await User.findById(mongoose.Types.ObjectId(reqUser._id)).select(
     "-password"
   ); //Pois o Id do MongoDb é uma string

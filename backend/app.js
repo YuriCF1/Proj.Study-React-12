@@ -17,10 +17,10 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //credian
 
 //Upload directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); //static = pasta terá arquivos estáticos|| Qualquer arquivo que esteja dentro da pasta /uploads poderá ser acessado publicamente no endereço http://localhost:3000/uploads/<nome-do-arquivo>.
-
+//__dirname = diretório local, e dentro deles, a pasta 'uploads'
 
 // DB conection
-require("./config/db.js")
+require("./config/db.js");
 
 // Routes, qualquer arquivo que esteja dentro da pasta /uploads poderá ser acessado publicamente no endereço http://localhost:3000/uploads/<nome-do-arquivo>.
 const router = require("./router/Router.js");
