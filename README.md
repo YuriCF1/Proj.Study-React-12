@@ -14,3 +14,6 @@ multer = Pacote para trabalhar com upload de imagens, tanto foto e foto de perfi
 #### npm i --save-dev nodemon
 
 nodemon = Ferramente de desenvolvimento. Que reinicializa o servidor quando algo é alterado e salvo
+
+[v] - Backend
+[] -  Frontend iniciado recentemente
