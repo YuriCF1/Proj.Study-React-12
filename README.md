@@ -1,7 +1,8 @@
 ## O projeto foi iniciado baixando os pacotes do npm
 
-#### npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer  
+#### Utilizando o comando: npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer  
 
+##Os seguintes pacotes possuem essas funcionalidades
 bcryptjs = Biblioteca para manipular senhas do usuário.
 cors = Receber requisições da mesma origem
 dotenv = Salvar as variáveis do ambiente. Ex: Domínio do banco de dados a ser resgato em outro lugar.
