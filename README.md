@@ -1,11 +1,8 @@
-## O projeto foi iniciado baixando os pacotes do npm
+# O projeto foi iniciado baixando os pacotes do npm
 
+## No backend 💽
 #### Utilizando o comando: npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer  
-
-### Os seguintes pacotes possuem essas funcionalidades
-
-##
-
+</br>
 bcryptjs = Biblioteca para manipular senhas do usuário; </br>
 cors = Receber requisições da mesma origem; </br>
 dotenv = Salvar as variáveis do ambiente. Ex: Domínio do banco de dados a ser resgato em outro lugar; </br>
@@ -18,6 +15,15 @@ multer = Pacote para trabalhar com upload de imagens, tanto foto e foto de perfi
 #### npm i --save-dev nodemon
 
 nodemon = Ferramente de desenvolvimento. Que reinicializa o servidor quando algo é alterado e salvo
+
+## No frontend 🖥️
+
+#### Utilizando o comando: npm i react-icones react-router-dom @reduxjs/toolkit
+</br>
+npm i react-icones = Pegar ícones
+react-router-dom = Navegação entre as páginas
+@reduxjs/toolkit = Manipalçao de estado mais limap
+
 
 [v] - Backend
 [] -  Frontend iniciado recentemente
