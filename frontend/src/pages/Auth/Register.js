@@ -21,7 +21,7 @@ const Register = () => {
         <input type="email" placeholder="E-mail" />
         <input type="password" placeholder="Senha" />
         <input type="password" placeholder="Confirma sua senha" />
-        <input type="sbubmit" value="Cadastrar" />
+        <input type="submit" value="Cadastrar" />
       </form>
       <p>Já possui uma conta? <Link to="/login">Clique aqui</Link></p>
     </div>
