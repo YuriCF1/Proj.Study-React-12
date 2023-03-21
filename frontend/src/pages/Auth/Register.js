@@ -23,7 +23,9 @@ const Register = () => {
         <input type="password" placeholder="Confirma sua senha" />
         <input type="submit" value="Cadastrar" />
       </form>
-      <p>Já possui uma conta? <Link to="/login">Clique aqui</Link></p>
+      <p>
+        Já possui uma conta? <Link to="/login">Clique aqui</Link>
+      </p>
     </div>
   );
 };
