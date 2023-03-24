@@ -22,6 +22,7 @@ nodemon = Ferramente de desenvolvimento. Que reinicializa o servidor quando algo
 </br>
 npm i react-icones = Pegar ícones
 react-router-dom = Navegação entre as páginas
+react-redux = Instalando redux
 @reduxjs/toolkit = Manipalçao de estado mais limap
 
 
