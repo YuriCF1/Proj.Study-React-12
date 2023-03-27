@@ -1,4 +1,4 @@
-export const api = "http://localhosts:5000/api";
+export const api = "http://localhost:5000/api";
 export const upload = "http://localhost:5000/uploads";
 
 export const requestConfig = (method, data, token = null, image = null) => {
@@ -22,7 +22,7 @@ export const requestConfig = (method, data, token = null, image = null) => {
       method,
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "aplication/json", //Definindo a resposta como json
+        "Content-Type": "application/json", //Definindo a resposta como json
       },
     };
   }
