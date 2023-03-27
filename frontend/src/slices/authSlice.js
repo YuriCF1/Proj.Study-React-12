@@ -46,7 +46,7 @@ export const authSlice = createSlice({
       state.error = null;
       state.user = action.payload;
     });
-    builder.rejected(register.fulfilled, (state, action) => {
+    builder.addCase(register.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload; //Pegando o erro
       state.user = null;
