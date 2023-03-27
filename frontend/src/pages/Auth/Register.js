@@ -6,15 +6,22 @@ import { Link } from "react-router-dom";
 //Hooks
 import React, { useEffect, useState } from "react";
 
+//Redux
+import { register, reset } from "../../slices/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch(); //Função que permite usar as funções do redux
+
+  const { loading, error } = useSelector((state) => state.auth); //Carregando o estado global do redux, através da importação authSlice com o register e reset. Ele lê tudo
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("enviado");
 
     const user = {
       name,
@@ -23,8 +30,15 @@ const Register = () => {
       confirmPassword,
     };
 
-    console.log(user);
+    dispatch(register(user));
+    console.log("Register compont Enviado", user);
   };
+
+  //Clean all auth states
+  useEffect(() => {
+    //Dica: Fazer um reset a cada dispatch, para limpar possíveis erros
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div id="register">
