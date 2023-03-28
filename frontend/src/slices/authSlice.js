@@ -7,7 +7,7 @@ const initialState = {
   //States passados para o Register.js através do useSelector
   //Enquanto a requisição estiver sendo feita, mapear os estados
   user: user ? user : null,
-  error: false,
+  error: false, //1.1 - Definindo state
   sucess: false,
   loading: false,
 };
@@ -19,8 +19,10 @@ export const register = createAsyncThunk(
     const data = await authService.register(user);
     //Check for errors
     if (data.errors) {
-      return thunkAPI.rejectWithValue(data.errors[0]); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
-    }
+      // return thunkAPI.rejectWithValue(data.errors[0]); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
+      return thunkAPI.rejectWithValue(data.errors); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
+    } //1.2 Identificando se tem erros. Vindo da API
+    console.log(data);
     return data;
   }
 );
@@ -46,9 +48,9 @@ export const authSlice = createSlice({
       state.error = null;
       state.user = action.payload;
     });
-    builder.addCase(register.rejected, (state, action) => {
+    builder.addCase(register.rejected, (state, action) => { //1.3 Req rejeitada.
       state.loading = false;
-      state.error = action.payload; //Pegando o erro
+      state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
       state.user = null;
     });
   },
