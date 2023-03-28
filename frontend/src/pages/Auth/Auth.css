@@ -36,3 +36,9 @@ font-weight: bold;
 color: #0094f6;
 }
 
+/* Errors */
+
+input {
+    margin-bottom: .5em;
+}
+
