@@ -2,6 +2,7 @@ import "./Auth.css";
 
 //Components
 import { Link } from "react-router-dom";
+import Message from "../../components/Message";
 
 //Hooks
 import React, { useEffect, useState } from "react";
@@ -31,7 +32,6 @@ const Register = () => {
     };
 
     dispatch(register(user));
-    console.log("Register compont Enviado", user);
   };
 
   //Clean all auth states
@@ -51,25 +51,42 @@ const Register = () => {
           onChange={(e) => setName(e.target.value)}
           value={name || ""}
         />
+        {error &&
+          error
+            .filter((err) => err.includes("nome"))
+            .map((err) => <Message key={err} msg={err} type="error" />)}
         <input
           type="email"
           placeholder="E-mail"
           onChange={(e) => setEmail(e.target.value)}
           value={email || ""}
         />
+        {error &&
+          error
+            .filter((err) => err.includes("email"))
+            .map((err) => <Message key={err} msg={err} type="error" />)}
         <input
           type="password"
           placeholder="Senha"
           onChange={(e) => setPassword(e.target.value)}
           value={password || ""}
         />
+        {error &&
+          error
+            .filter((err) => err.includes("senha "))
+            .map((err) => <Message key={err} msg={err} type="error" />)}
         <input
           type="password"
           placeholder="Confirma sua senha"
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword || ""}
         />
-        <input type="submit" value="Cadastrar" />
+        {error &&
+          error
+            .filter((err) => err.includes("iguais"))
+            .map((err) => <Message key={err} msg={err} type="error" />)}
+        {!loading && <input type="submit" value="Cadastrar" />}
+        {loading && <input type="submit" value="Aguarde..." disabled />}
       </form>
       <p>
         Já possui uma conta? <Link to="/login">Clique aqui</Link>
