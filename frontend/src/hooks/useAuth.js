@@ -19,6 +19,5 @@ export const useAuth = () => {
 
     setLoading(false);
   }, [user]); //Sempre que o usuário for alterado
+  return { auth, loading };
 };
-
-return { auth, loading };
