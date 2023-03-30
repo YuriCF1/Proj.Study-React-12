@@ -1,8 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 //Router
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+//Hooks
+import { useAuth } from "./hooks/useAuth";
 
 //Pages
 import Home from "./pages/Home/Home";
@@ -14,6 +16,14 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
 function App() {
+  const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
+
+  console.log(loading);
+
+  if (loading) {
+    return <p>Carregando</p>;
+  }
+
   return (
     <div className="App">
       {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
@@ -21,9 +31,18 @@ function App() {
         <NavBar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
+            <Route
+              path="/"
+              element={auth ? <Home /> : <Navigate to="/login" />}
+            ></Route>
+            <Route
+              path="/login"
+              element={!auth ? <Login /> : <Navigate to="/" />}
+            ></Route>
+            <Route
+              path="/register"
+              element={!auth ? <Register /> : <Navigate to="/" />}
+            ></Route>
           </Routes>
         </div>
         <Footer />
