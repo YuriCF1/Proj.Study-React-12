@@ -4,7 +4,8 @@ export const upload = "http://localhost:5000/uploads";
 export const requestConfig = (method, data, token = null, image = null) => {
   let config;
 
-  if (image) { //Requisição estilo 'form-data'
+  if (image) {
+    //Requisição estilo 'form-data'
     config = {
       method,
       body: data,
