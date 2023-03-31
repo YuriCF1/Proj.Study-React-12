@@ -3,7 +3,7 @@ import authService from "../services/authService";
 
 const user = JSON.stringify(localStorage.getItem("user"));
 
-const initialState = { 
+const initialState = {
   //States passados para o Register.js através do useSelector
   //Enquanto a requisição estiver sendo feita, mapear os estados
   user: user ? user : null,
@@ -48,7 +48,8 @@ export const authSlice = createSlice({
       state.error = null;
       state.user = action.payload;
     });
-    builder.addCase(register.rejected, (state, action) => { //1.3 Req rejeitada.
+    builder.addCase(register.rejected, (state, action) => {
+      //1.3 Req rejeitada.
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
       state.user = null;
