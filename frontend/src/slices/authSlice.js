@@ -27,6 +27,11 @@ export const register = createAsyncThunk(
   }
 );
 
+//Logout an user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await authService.logout(); //Removendo o token do localStorage
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -52,6 +57,12 @@ export const authSlice = createSlice({
       //1.3 Req rejeitada.
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
+      state.user = null;
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.loading = false;
+      state.sucess = true;
+      state.error = null;
       state.user = null;
     });
   },
