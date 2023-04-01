@@ -9,8 +9,10 @@ import {
   BsFillCameraFill,
 } from "react-icons/bs"; // bs = indicando que está sendo pego da biblioteca do bootstrap
 
+//Redux
+import { logout, reset } from "../slices/authSlice";
+
 //Hooks
-useState;
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +20,16 @@ import { useDispatch, useSelector } from "react-redux";
 const NavBar = () => {
   const { auth } = useAuth();
   const { user } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+
+    navigate("/login");
+  };
 
   return (
     <div>
@@ -49,7 +61,7 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li>
-                <span>Sair</span>
+                <span onClick={handleLogout}>Sair</span>
               </li>
             </>
           ) : (
