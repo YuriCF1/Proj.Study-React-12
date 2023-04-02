@@ -10,9 +10,7 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(user);
-    if (user != "null") {
-      //Vendo se o usuário existe, então quer dizer que ele foi autenticado
+    if (user && user != "null") {
       setAuth(true);
     } else {
       setAuth(false); //Até por conta do logout
