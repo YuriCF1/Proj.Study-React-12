@@ -18,7 +18,7 @@ import Footer from "./components/Footer";
 function App() {
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
 
-  console.log(loading);
+  console.log(auth);
 
   if (loading) {
     return <p>Carregando</p>;
