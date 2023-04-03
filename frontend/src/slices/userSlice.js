@@ -11,7 +11,7 @@ const initialState = {
 
 // Get user details to form user
 export const profile = createAsyncThunk(
-  "use/profile",
+  "user/profile",
   async (user, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token; //Salvo nos states do auth, objeto user, state token
     const data = await userService.profile(user, token);
@@ -40,13 +40,13 @@ export const userSlice = createSlice({
       state.error = null;
       state.user = action.payload;
     });
-    //Teoricamente, não haverá erros
-    // builder.addCase(profile.rejected, (state, action) => {
-    //   //1.3 Req rejeitada.
-    //   state.loading = false;
-    //   state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
-    //   state.user = null;
-    // });
+    // Teoricamente, não haverá erros
+    builder.addCase(profile.rejected, (state, action) => {
+      //1.3 Req rejeitada.
+      state.loading = false;
+      state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
+      state.user = null;
+    });
   },
 });
 
