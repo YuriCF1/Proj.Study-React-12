@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 
-const user = JSON.stringify(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   //States passados para o Register.js através do useSelector
