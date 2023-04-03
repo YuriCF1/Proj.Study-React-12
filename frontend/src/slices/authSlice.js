@@ -17,7 +17,7 @@ export const register = createAsyncThunk(
   "auth/register", //Dando o nome para a função de createAsyncThanks. Padrão ("entidade/ação") Ex: "auth/login". Para depois ser usado no extrareducers
   async (user, thunkAPI) => {
     const data = await authService.register(user);
-    
+
     //Check for errors
     if (data.errors) {
       // return thunkAPI.rejectWithValue(data.errors[0]); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
@@ -26,16 +26,16 @@ export const register = createAsyncThunk(
     console.log(data);
     return data;
   }
-  );
-  
-  //Sign in an user 
-  export const login = createAsyncThunk(
-    "auth/login", //Dando o nome para a função de createAsyncThanks. Padrão ("entidade/ação") Ex: "auth/login"
-    async (user, thunkAPI) => {
-      const data = await authService.login(user);
-      
-      //Check for errors
-      if (data.errors) {
+);
+
+//Sign in an user
+export const login = createAsyncThunk(
+  "auth/login", //Dando o nome para a função de createAsyncThanks. Padrão ("entidade/ação") Ex: "auth/login"
+  async (user, thunkAPI) => {
+    const data = await authService.login(user);
+
+    //Check for errors
+    if (data.errors) {
       console.log(data.errors);
       // return thunkAPI.rejectWithValue(data.errors[0]); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
       return thunkAPI.rejectWithValue(data.errors); //Pegando o array de errors do backend que fiz. Posso também pegar todos e colocar em seus devidos inputs
@@ -44,7 +44,6 @@ export const register = createAsyncThunk(
     return data;
   }
 );
-
 
 //Logout an user
 export const logout = createAsyncThunk("auth/logout", async () => {
