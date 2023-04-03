@@ -10,7 +10,7 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user && user != "null") {
+    if (user && user !== "null") {
       setAuth(true);
     } else {
       setAuth(false); //Até por conta do logout
