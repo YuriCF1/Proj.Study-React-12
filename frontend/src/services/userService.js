@@ -5,7 +5,7 @@ const profile = async (data, token) => { //Dá pra pegar o user pelo token
   const config = requestConfig("GET", data, token);
 
   try {
-    const res = fetch(api + "/users/profile", config)
+    const res = await fetch(api + "/users/profile", config)
       .then((res) => res.json())
       .catch((err) => err);
 
