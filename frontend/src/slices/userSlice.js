@@ -29,7 +29,7 @@ export const updateProfile = createAsyncThunk(
 
     //Check for errors
     if (data.errors) {
-      return thunkAPI.rejectWithValue(data.errors);
+      return thunkAPI.rejectWithValue(data.errors[0]);
     }
 
     return data;
@@ -77,9 +77,10 @@ export const userSlice = createSlice({
     // Teoricamente, não haverá erros
     builder.addCase(updateProfile.rejected, (state, action) => {
       //1.3 Req rejeitada.
+      console.log(state, action);
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
-      state.user = null;
+      state.user = {};
     });
   },
 });
