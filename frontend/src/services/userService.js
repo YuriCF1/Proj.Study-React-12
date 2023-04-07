@@ -1,7 +1,8 @@
 import { api, requestConfig } from "../utils/config";
 
 //Get user details
-const profile = async (data, token) => { //Dá pra pegar o user pelo token
+const profile = async (data, token) => {
+  //Dá pra pegar o user pelo token
   const config = requestConfig("GET", data, token);
 
   try {
@@ -29,10 +30,26 @@ const updateProfile = async (data, token) => {
   }
 };
 
+//Get user details
+//Não precisa passar o token, já que é uma rota sem o 'validate' nas rotas do backend. Rota pública
+const getUserDetails = async (id) => {
+  const config = requestConfig("GET");
+
+  try {
+    const res = await fetch(api + "/users/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const userService = {
   profile,
-  updateProfile
-  
+  updateProfile,
+  getUserDetails,
 };
 
 export default userService;
