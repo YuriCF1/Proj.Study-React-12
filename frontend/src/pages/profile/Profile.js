@@ -4,7 +4,7 @@
 import Porfile from "./Profile.css";
 
 //Icons
-import {BsFillEyesFill, BsPencilFill, BsXLg} from 'react/icons/bs'
+import { BsFillEyesFill, BsPencilFill, BsXLg } from "react-icons/bs";
 
 //Files
 import { uploads } from "../../utils/config";
@@ -24,9 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Redux
 
 const Profile = () => {
-  return <div>
-    prof
-  </div>;
+  return <div>prof</div>;
 };
 
 export default Profile;
