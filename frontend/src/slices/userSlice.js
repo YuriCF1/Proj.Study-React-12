@@ -36,6 +36,16 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
+//Get user details
+export const getUserDetails = createAsyncThunk(
+  "user/get",
+  async (id, thunkAPI) => {
+    const data = await userService.getUserDetails(id);
+
+    return data;
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -74,13 +84,23 @@ export const userSlice = createSlice({
       state.user = action.payload;
       state.message = "Usuário atualizado com sucesso!";
     });
-    // Teoricamente, não haverá erros
     builder.addCase(updateProfile.rejected, (state, action) => {
       //1.3 Req rejeitada.
       console.log(state, action);
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
       state.user = {};
+    });
+    //Get user data
+    builder.addCase(getUserDetails.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+    });
+    builder.addCase(getUserDetails.fulfilled, (state, action) => {
+      state.loading = false;
+      state.sucess = true;
+      state.error = null;
+      state.user = action.payload; //Mudando o state
     });
   },
 });
