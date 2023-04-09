@@ -56,6 +56,13 @@ const Profile = () => {
           <h2>{user.name}</h2>
           <p>{user.bio}</p>
         </div>
+        {/* {(() => {
+          if (userAuth) {
+            return <p>Sim</p>;
+          } else {
+            return <p>Não</p>;
+          }
+        })()} */}
       </div>
     </div>
   );
