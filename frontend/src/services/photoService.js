@@ -1,5 +1,23 @@
 import { api, requestConfig } from "../utils/config";
 
-const photoService = {};
+//Publish an user photo
+const publishPhoto = async (data, token) => {
+  //Token pois é uma função apenas para quem está logado/autentificado
+  const config = requestConfig("GET", data, token, true);
+
+  try {
+    const res = await fetch(api + "/photos")
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const photoService = {
+  publishPhoto,
+};
 
 export default photoService;
