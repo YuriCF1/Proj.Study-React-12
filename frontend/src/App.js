@@ -15,7 +15,7 @@ import Register from "./pages/Auth/Register";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import EditProfile from "./pages/EditProfile/EditProfile";
-import Profile from "./pages/profile/Profile";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
