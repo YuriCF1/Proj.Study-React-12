@@ -3,10 +3,11 @@ import { configureStore } from "@reduxjs/toolkit";
 //Reducers/Slices
 import authReducer from "./slices/authSlice";
 import userReducer from "./slices/userSlice";
+import photoReducer from "./slices/photoSlice";
 
 export const store = configureStore({
   //Salvando todos os contextos
-  reducer: { auth: authReducer, user: userReducer },
+  reducer: { auth: authReducer, user: userReducer, photo: photoReducer },
 });
 
 // NOTAS:
