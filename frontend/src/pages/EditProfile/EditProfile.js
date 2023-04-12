@@ -8,17 +8,19 @@ import { uploads } from "../../utils/config";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-//Redux
-import { profile, resetMessage, updateProfile } from "../../slices/userSlice";
-
 //Components
 import Message from "../../components/Message";
 
+//Redux
+import { profile, resetMessage, updateProfile } from "../../slices/userSlice";
+
 const EditProfile = () => {
   const dispatch = useDispatch();
+
+  //States redux
   const { user, message, error, loading } = useSelector((state) => state.user);
 
-  //States
+  //States react
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +54,7 @@ const EditProfile = () => {
       name,
     };
 
-    if (profile) {
+    if (profileImage) {
       userData.profileImage = profileImage;
     }
 
@@ -74,8 +76,6 @@ const EditProfile = () => {
     formData.append("user", userFormData);
 
     await dispatch(updateProfile(formData));
-    console.log("FormData", formData);
-    console.log("useFormData", userFormData);
 
     //Iterando sobre o formData
     for (const pair of formData.entries()) {
