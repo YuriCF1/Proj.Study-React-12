@@ -3,10 +3,10 @@ import { api, requestConfig } from "../utils/config";
 //Publish an user photo
 const publishPhoto = async (data, token) => {
   //Token pois é uma função apenas para quem está logado/autentificado
-  const config = requestConfig("GET", data, token, true);
+  const config = requestConfig("POST", data, token, true);
 
   try {
-    const res = await fetch(api + "/photos")
+    const res = await fetch(api + "/photos", config)
       .then((res) => res.json())
       .catch((err) => err);
 
