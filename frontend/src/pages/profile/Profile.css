@@ -12,8 +12,55 @@
 }
 
 .profile-header img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 2em;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 2em;
+}
+
+/* User photos */
+
+.new-photo {
+  padding: 1em;
+  border-bottom: 1px solid #363636;
+}
+
+.photos-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo {
+  width: 32%;
+  margin: 0.3%;
+  position: relative;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.actions svg {
+  cursor: pointer;
+}
+
+.edit-photo {
+  margin-bottom: 1em;
+}
+.edit-photo img {
+  width: 100%;
+  margin-bottom: 1em;
 }
