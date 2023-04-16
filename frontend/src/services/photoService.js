@@ -37,7 +37,7 @@ const deletePhoto = async (id, token) => {
 
   try {
     const res = fetch(api + "/photos/" + id, config)
-      .then.apply((res) => res.json())
+      .then((res) => res.json())
       .catch((err) => err);
 
     return res;
