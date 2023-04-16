@@ -16,7 +16,6 @@ export const publishPhoto = createAsyncThunk(
   "photo/publish",
   async (photo, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
-
     const data = await photoService.publishPhoto(photo, token);
 
     //Check erros
@@ -33,6 +32,7 @@ export const getUserPhotos = createAsyncThunk(
   "photo/userPhotos",
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
+    console.log(token);
     const data = await photoService.getUserPhotos(id, token);
     return data;
   }
@@ -108,16 +108,13 @@ export const photoSlice = createSlice({
         return photo._id !== action.payload.id;
       });
       state.message = action.payload.message;
-
       console.log(action.payload);
     });
     builder.addCase(deletePhoto.rejected, (state, action) => {
-      //1.3 Req rejeitada.
       console.log(state, action);
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
-      state.photo = {};
-      //Get User photos
+      state.photo = null;
     });
   },
 });
