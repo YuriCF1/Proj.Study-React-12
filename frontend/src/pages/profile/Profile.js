@@ -4,7 +4,8 @@
 import Porfile from "./Profile.css";
 
 //Icons
-import { BsFillEyesFill, BsPencilFill, BsXLg } from "react-icons/bs";
+import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
+// import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 
 //Files
 import { uploads } from "../../utils/config";
@@ -27,6 +28,7 @@ import {
   publishPhoto,
   resetMessage,
   getUserPhotos,
+  deletePhoto,
 } from "../../slices/photoSlice";
 
 const Profile = () => {
@@ -44,6 +46,8 @@ const Profile = () => {
     message: messagePhoto,
     error: errorPhoto,
   } = useSelector((state) => state.photo);
+
+  console.log(photos);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
@@ -84,12 +88,23 @@ const Profile = () => {
     dispatch(publishPhoto(formData));
 
     setTitle("");
+    resetComponentMessages();
+  };
 
+  // Delete photo
+  const handleDelete = (id) => {
+    dispatch(deletePhoto(id));
+    resetComponentMessages();
+  };
+
+  //Reset function
+  const resetComponentMessages = () => {
     setTimeout(() => {
       dispatch(resetMessage);
     }, 2000);
   };
 
+  //Loading page
   if (loading) {
     return <p>Carregando...</p>;
   }
@@ -141,7 +156,6 @@ const Profile = () => {
           </div>
         </>
       )}
-
       <div className="user-photos">
         <h2>Fotos publicadas</h2>
         <div className="photos-container">
@@ -154,9 +168,15 @@ const Profile = () => {
                     alt={photo.title}
                   />
                 )}
-                {/* Barra de ferramentas */}
                 {id === userAuth._id ? (
-                  <p>Actions</p>
+                  <div className="actions">
+                    <Link className="btn" to={`/photos/${photo._id}`}>
+                      <BsFillEyeFill />
+                    </Link>
+                    <BsPencilFill />
+                    <BsXLg onClick={() => handleDelete(photo._id)} />{" "}
+                    {/*Sem a arrow function, ele executa assim que aparece na tela*/}
+                  </div>
                 ) : (
                   <Link className="btn" to={`/photos/${photo._id}`}>
                     Ver
