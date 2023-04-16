@@ -38,6 +38,24 @@ export const getUserPhotos = createAsyncThunk(
   }
 );
 
+// Delete a photo
+export const deletePhoto = createAsyncThunk(
+  "photo/delete",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await photoService.deletePhoto(id, token);
+
+    console.log(data.errors);
+    // Check for errors
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 export const photoSlice = createSlice({
   name: "photo",
   initialState,
@@ -77,8 +95,42 @@ export const photoSlice = createSlice({
       state.error = null;
       state.photos = action.payload;
     });
+    builder.addCase(deletePhoto.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+    });
+    builder.addCase(deletePhoto.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+      state.photos = state.photos.filter((photo) => {
+        //Filtrando as fotos, tirando a do ID que mandei
+        return photo._id !== action.payload.id;
+      });
+      state.message = action.payload.message;
+
+      console.log(action.payload);
+    });
+    builder.addCase(deletePhoto.rejected, (state, action) => {
+      //1.3 Req rejeitada.
+      console.log(state, action);
+      state.loading = false;
+      state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
+      state.photo = {};
+      //Get User photos
+    });
   },
 });
 
 export const { resetMessage } = photoSlice.actions;
 export default photoSlice.reducer;
+
+/*NOTAS: 
+Estrutura de actions
+{
+  type: 'sliceName/actionType/fulfilled',
+  payload: dados retornados pela ação assíncrona 
+  meta:  metadados da ação assíncrona, se houver 
+}
+
+*/
