@@ -101,6 +101,12 @@ const updatePhoto = async (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
+  let image;
+
+  if (req.file) {
+    image = req.file.filename;
+  }
+
   const reqUser = req.user;
 
   const photo = await Photo.findById(id);
@@ -119,13 +125,21 @@ const updatePhoto = async (req, res) => {
     return;
   }
 
-  if (!title) {
-    res
-      .status(422)
-      .json({ photo, message: "Title não veio no body", title, id });
-    return;
-  } else {
+  // if (!title) {
+  //   res
+  //     .status(422)
+  //     .json({ photo, message: "Title não veio no body", title, id });
+  //   return;
+  // } else {
+  //   photo.title = title;
+  // }
+
+  if (title) {
     photo.title = title;
+  }
+
+  if (image) {
+    photo.image = image;
   }
 
   await photo.save();
