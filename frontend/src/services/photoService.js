@@ -55,7 +55,7 @@ const updatePhoto = async (data, id, token) => {
       .then((res) => res.json())
       .catch((err) => err);
     console.log(res);
-      return res
+    return res;
   } catch (error) {
     console.log(error);
   }
@@ -66,7 +66,7 @@ const photoService = {
   getUserPhotos,
   requestConfig,
   deletePhoto,
-  updatePhoto
+  updatePhoto,
 };
 
 export default photoService;
