@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extend: false })); //Define o middleware para proce
 app.use(cors({ credentials: true, origin: "http://localhost:3000" })); //crediantals: true = o servidor pode enviar e receber cookies e cabeçalhos de autenticação.
 
 //Upload directory
+//Setting upload route
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); //static = pasta terá arquivos estáticos|| Qualquer arquivo que esteja dentro da pasta /uploads poderá ser acessado publicamente no endereço http://localhost:3000/uploads/<nome-do-arquivo>.
 //__dirname = diretório local, e dentro deles, a pasta 'uploads'
 
