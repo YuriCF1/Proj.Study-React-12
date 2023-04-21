@@ -11,7 +11,7 @@ import Message from "../../components/Message";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-///Redux
+//Redux
 
 
 const Photo = () => {
