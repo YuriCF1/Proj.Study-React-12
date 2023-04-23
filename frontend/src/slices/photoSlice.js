@@ -85,6 +85,19 @@ export const getPhotoById = createAsyncThunk(
   }
 );
 
+//Like a photo
+export const likeAPhoto = createAsyncThunk("photo/like", async (id, token) => {
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await photoService.likeAPhoto(id, token);
+
+  // Check for errors
+  if (data.errors) {
+    return thunkAPI.rejectWithValue(data.errors[0]);
+  }
+
+  return data;
+});
+
 export const photoSlice = createSlice({
   name: "photo",
   initialState,
@@ -180,6 +193,30 @@ export const photoSlice = createSlice({
       state.success = true;
       state.error = null;
       state.photo = action.payload;
+    });
+    builder.addCase(likeAPhoto.fulfilled, (state, action) => {
+      // state.loading = false; //É uma ação tão rápida, que  nem precisa de loading
+      state.success = true;
+      state.error = null;
+      state.photo = action.payload;
+
+      if (state.photo.likes) {
+        state.photo.likes.push(action.payload.userId);
+      }
+
+      //Chegando as fotos do feed, por exemplo. Para atualizar na tela
+      state.photos.map((photo) => {
+        if (photo._id === action.payload.photo.photoId) {
+          return photo.likes.push(action.payload.userId);
+        }
+        return photo;
+      });
+      
+    });
+    builder.addCase(likeAPhoto.rejected, (state, action) => {
+      console.log(state, action);
+      state.loading = false;
+      state.error = action.payload;
     });
   },
 });
