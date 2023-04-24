@@ -161,13 +161,13 @@ const likePhoto = async (req, res) => {
 
   // Checks if user already liked the photo
   if (photo.likes.includes(reqUser._id)) {
-    res.status(422).json({ errors: ["Foto já curtida"], photo });
+    res.status(422).json({ errors: ["Foto já curtida"] });
     return;
   }
 
   //Put user id in likes array
   photo.likes.push(reqUser._id);
-  photo.save();
+  await photo.save();
 
   res
     .status(200)
