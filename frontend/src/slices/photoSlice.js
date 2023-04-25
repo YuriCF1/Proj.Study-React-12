@@ -115,11 +115,11 @@ export const photoSlice = createSlice({
       state.error = false;
     });
     builder.addCase(publishPhoto.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.loading = false;
       state.success = true;
       state.error = null;
       state.photo = action.payload;
-      console.log(action.payload);
       state.photos.unshift(state.photo); //Adicionando, no primeiro lugar do array, a foto
       state.message = "Foto publicada com sucesso!";
     });
@@ -198,15 +198,16 @@ export const photoSlice = createSlice({
       state.photo = action.payload;
     });
     builder.addCase(likeAPhoto.fulfilled, (state, action) => {
+      console.log("Payload: ", action.payload);
       state.loading = false; //É uma ação tão rápida, que  nem precisa de loading
       state.success = true;
+      state.message = action.payload.message;
       state.error = null;
       // state.photo = action.payload;
 
       if (state.photo.likes) {
         state.photo.likes.push(action.payload.userId);
       }
-      console.log("Payload: ", action.payload);
 
       //Chegando as fotos do feed, por exemplo. Para atualizar na tela
       state.photos.map((photo) => {
