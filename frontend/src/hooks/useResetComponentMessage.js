@@ -1,7 +1,7 @@
 //Redux
 import { resetMessage } from "../slices/photoSlice";
 
-export const useResetCompomentMessage = (dispatch) => {
+export const useResetComponentMessage = (dispatch) => {
   return () => {
     setTimeout(() => {
       dispatch(resetMessage());
