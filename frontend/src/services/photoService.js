@@ -90,6 +90,20 @@ const likeAPhoto = async (id, token) => {
     console.log(error);
   }
 };
+//Add a Coment to a photo
+const comentAPhoto = async (data, id, token) => {
+  const config = requestConfig("PUT", data, token);
+
+  try {
+    const res = await fetch(api + "/photos/coment/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const photoService = {
   publishPhoto,
@@ -99,6 +113,7 @@ const photoService = {
   updatePhoto,
   getPhotoById,
   likeAPhoto,
+  comentAPhoto,
 };
 
 export default photoService;
