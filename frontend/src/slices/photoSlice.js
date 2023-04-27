@@ -46,7 +46,7 @@ export const deletePhoto = createAsyncThunk(
 
     const data = await photoService.deletePhoto(id, token);
 
-    // Check for errors
+    // Check for errors, já que é um update. Principlamente
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
     }
@@ -66,7 +66,7 @@ export const updatePhoto = createAsyncThunk(
       token
     );
 
-    // Check for errors
+    // Check for errors, já que é um update. Principlamente
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
     }
@@ -92,9 +92,31 @@ export const likeAPhoto = createAsyncThunk(
     const token = thunkAPI.getState().auth.user.token;
     const data = await photoService.likeAPhoto(id, token);
 
-    // Check for errors
+    // Check for errors, já que é um update. Principlamente
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
+//Comentins a photo
+export const commentingAPhoto = createAsyncThunk(
+  "photo/coment",
+  async (comentData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.comentAPhoto(
+      { comment: comentData.comment },
+      comentData.id,
+      token
+    );
+
+    console.log(comentData);
+
+    //Check for errors
+    if (data.erros) {
+      return thunkAPI.rejectWithValue(data.error[0]);
     }
 
     return data;
@@ -221,6 +243,28 @@ export const photoSlice = createSlice({
       console.log(state, action);
       state.loading = false;
       state.error = action.payload;
+    });
+    // Comentários da foto
+    builder.addCase(commentingAPhoto.pending, (state, action) => {
+      console.log(state, action);
+      // state.loading = true;
+      state.error = false;
+      state.success = false;
+    });
+    builder.addCase(commentingAPhoto.fulfilled, (state, action) => {
+      console.log(state, action);
+      // state.loading = false;
+      state.error = false;
+      state.success = true;
+      state.message = action.payload.message;
+
+      state.photo.comments.push(action.payload.comment);
+    });
+    builder.addCase(commentingAPhoto.rejected, (state, action) => {
+      console.log(state, action);
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
     });
   },
 });
