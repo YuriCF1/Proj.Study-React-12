@@ -1,7 +1,14 @@
+<!-- COISAS PARA FAZER -->
+<!-- HOOK PARA LIKE DE FOTO, PHOTOITEM E HOME -->
+<!-- DELETAR LIKE -->
+<!-- DELETAR COMENTÁRIO -->
+
 # O projeto foi iniciado baixando os pacotes do npm
 
 ## No backend 💽
-#### Utilizando o comando: npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer  
+
+#### Utilizando o comando: npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer
+
 </br>
 bcryptjs = Biblioteca para manipular senhas do usuário; </br>
 cors = Receber requisições da mesma origem; </br>
@@ -19,12 +26,12 @@ nodemon = Ferramente de desenvolvimento. Que reinicializa o servidor quando algo
 ## No frontend 🖥️
 
 #### Utilizando o comando: npm i react-icones react-router-dom @reduxjs/toolkit
+
 </br>
 npm i react-icones = Pegar ícones
 react-router-dom = Navegação entre as páginas
 react-redux = Instalando redux
 @reduxjs/toolkit = Manipalçao de estado mais limap
 
-
 [v] - Backend
-[] -  Frontend iniciado recentemente
+[v] - Frontend iniciado recentemente
