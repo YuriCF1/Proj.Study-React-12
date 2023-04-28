@@ -123,6 +123,16 @@ export const commentingAPhoto = createAsyncThunk(
   }
 );
 
+//Getting all the photos
+export const getAllPhotos = createAsyncThunk("photo/getAll", async (_, thunkAPI) => { //IMPORTANTE: _ é quando os dados não será enviados. 
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await photoService.getAllPhotos(token);
+  console.log(data);
+  console.log("Fotos");
+  return data;
+
+});
+
 export const photoSlice = createSlice({
   name: "photo",
   initialState,
@@ -265,6 +275,17 @@ export const photoSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
       state.success = false;
+    });
+    // IMPORTANTE: FAZER PAGINAÇÃO PARA QUE NÃO CARREGUE 1.000 FOTOS QUANDO VIER A TER
+    builder.addCase(getAllPhotos.pending, (state) => {
+      state.error = false;
+      state.loading = true;
+    });
+    builder.addCase(getAllPhotos.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+      state.photos = action.payload;
     });
   },
 });
