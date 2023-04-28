@@ -11,7 +11,7 @@ import PhotoItem from "../../components/PhotoItem";
 //Hooks
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useResetCompomentMessage } from "../../hooks/useResetComponentMessage";
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 
 //Redux
 import {
@@ -27,7 +27,7 @@ const Photo = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const resetMessageHook = useResetCompomentMessage(dispatch);
+  const resetMessageHook = useResetComponentMessage(dispatch);
 
   const { user } = useSelector((state) => state.auth);
   const { photo, loading, error, message } = useSelector(
