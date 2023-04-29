@@ -31,7 +31,7 @@ const Photo = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { photo, loading, error, message } = useSelector(
-    (state) => state.photo
+    (state) => state.photos
   );
 
   //Coments
