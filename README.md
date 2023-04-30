@@ -1,5 +1,7 @@
 <!-- COISAS PARA FAZER -->
 <!-- HOOK PARA LIKE DE FOTO, PHOTOITEM E HOME -->
+<!-- Componentizar o loading? if(loading) {return Carregando...} -->
+<!-- Componentizar a o map de photo na Home e Search, e fotos zeradas-->
 <!-- DELETAR LIKE -->
 <!-- DELETAR COMENTÁRIO -->
 
