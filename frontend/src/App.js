@@ -59,7 +59,7 @@ function App() {
             ></Route>
             <Route
               path="/search"
-              element={!auth ? <Search /> : <Navigate to="/login" />}
+              element={auth ? <Search /> : <Navigate to="/login" />}
             ></Route>
           </Routes>
         </div>
