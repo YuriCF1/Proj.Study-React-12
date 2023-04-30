@@ -53,7 +53,7 @@ const Profile = () => {
     loading: loadingPhoto,
     message: messagePhoto,
     error: errorPhoto,
-  } = useSelector((state) => state.photo);
+  } = useSelector((state) => state.photos);
 
   //Publis states
   const [title, setTitle] = useState("");
