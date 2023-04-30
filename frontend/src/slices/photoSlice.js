@@ -124,14 +124,28 @@ export const commentingAPhoto = createAsyncThunk(
 );
 
 //Getting all the photos
-export const getAllPhotos = createAsyncThunk("photo/getAll", async (_, thunkAPI) => { //IMPORTANTE: _ é quando os dados não será enviados. 
-  const token = thunkAPI.getState().auth.user.token;
-  const data = await photoService.getAllPhotos(token);
-  console.log(data);
-  console.log("Fotos");
-  return data;
+export const getAllPhotos = createAsyncThunk(
+  "photo/getAll",
+  async (_, thunkAPI) => {
+    //IMPORTANTE: _ é quando os dados não será enviados.
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.getAllPhotos(token);
+    console.log(data);
+    console.log("Fotos");
+    return data;
+  }
+);
 
-});
+//Search photo by title
+export const searchPhotos = createAsyncThunk(
+  "photo/search",
+  async (query, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.searchPhotos(query, token);
+
+    return data;
+  }
+);
 
 export const photoSlice = createSlice({
   name: "photo",
@@ -278,10 +292,20 @@ export const photoSlice = createSlice({
     });
     // IMPORTANTE: FAZER PAGINAÇÃO PARA QUE NÃO CARREGUE 1.000 FOTOS QUANDO VIER A TER
     builder.addCase(getAllPhotos.pending, (state) => {
-      state.error = false;
       state.loading = true;
+      state.error = false;
     });
     builder.addCase(getAllPhotos.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+      state.photos = action.payload;
+    });
+    builder.addCase(searchPhotos.pending, (state) => {
+      state.loading = true;
+      state.error = false;
+    });
+    builder.addCase(searchPhotos.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
       state.error = null;
