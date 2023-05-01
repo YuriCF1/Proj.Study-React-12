@@ -18,7 +18,7 @@ import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux
-import { getAllPhotos, likeAPhoto, LikeAPhoto } from "../../slices/photoSlice";
+import { getAllPhotos, likeAPhoto } from "../../slices/photoSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
