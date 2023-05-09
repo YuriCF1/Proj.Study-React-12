@@ -10,7 +10,22 @@ const initialState = {
   error: false, //1.1 - Definindo state
   sucess: false,
   loading: false,
+  tokenError: false,
 };
+
+//Testamdo se o token foi invalidado pelo prazo dos 7 dias
+export const testing = createAsyncThunk("auth/testing", async (_, thunkAPI) => {
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await authService.testing(token);
+
+  //Possível solução para fazer com que o createAsyncTunk entenda o Unauthorized como Rejected
+  // if (data.errors) {
+  //    return thunkAPI.rejectWithValue("Unauthorized");
+  //   //return thunkAPI.rejectWithValue(data.errors[0]);
+  // }
+
+  return data;
+});
 
 //Register an user and sign in
 export const register = createAsyncThunk(
@@ -71,6 +86,7 @@ export const authSlice = createSlice({
       state.sucess = true;
       state.error = null;
       state.user = action.payload;
+      state.tokenError = false;
     });
     builder.addCase(register.rejected, (state, action) => {
       //1.3 Req rejeitada.
@@ -95,12 +111,23 @@ export const authSlice = createSlice({
       state.sucess = true;
       state.error = null;
       state.user = action.payload;
+      state.tokenError = false;
     });
     builder.addCase(login.rejected, (state, action) => {
       //1.3 Req rejeitada.
       state.loading = false;
       state.error = action.payload; //1.4 Pegando os erros da API e passando para o estado 1.1
       state.user = null;
+    });
+    //Testamdo se o token foi invalidado pelo prazo dos 7 dias
+    builder.addCase(testing.fulfilled, (state, action) => {
+      console.log("test");
+      state.loading = false;
+      if (typeof tokenError === Object) {
+        state.tokenError = action.payload;
+      } else {
+        state.tokenError = false;
+      }
     });
   },
 });
@@ -179,5 +206,28 @@ se for esse o caso, não faz outra chamada à API.
 
 - extraReducers: uma função que permite adicionar casos extras ao createSlice. Neste exemplo, adicionamos casos extras para manipular as ações pending, fulfilled e rejected.
 Esses são apenas alguns exemplos de como usar o objeto options. Ele também oferece outras opções, como fulfilledSuffix, rejectedSuffix, serializeError, meta e outros.
+
+*/
+
+/* FAZER COM QUE O CREATE ASYNC THUNK ENTENDA O UNAUTHORIZED COMO REJECTED
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { api } from '../api';
+
+export const fetchToken = createAsyncThunk(
+  'auth/fetchToken',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/auth/token', data);
+      return response.data;
+    } catch (error) {
+      // Se o erro for unauthorized (401), rejeita a requisição com uma mensagem de erro.
+      if (error.response.status === 401) {
+        return rejectWithValue('Unauthorized');
+      }
+      // Senão, rejeita a requisição com a mensagem de erro padrão.
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 */
