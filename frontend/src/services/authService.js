@@ -1,5 +1,24 @@
 import { api, requestConfig } from "../utils/config";
 
+//Testing if the token expired after the 7 days limit
+const testing = async (token) => {
+  if (token) {
+    const config = requestConfig("GET", null, token);
+
+    try {
+      const res = await fetch(api + "/users/", config)
+        .then((res) => res.json())
+        .catch((err) => err);
+
+      console.log(res);
+      return res;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 //Register an user
 const register = async (data) => {
   const config = requestConfig("POST", data);
@@ -38,6 +57,7 @@ const login = async (data) => {
 
     //Só envia se não houver erros
     if (!res.errors) {
+      console.log(res.errors);
       localStorage.setItem("user", JSON.stringify(res));
     }
 
@@ -51,6 +71,7 @@ const authService = {
   register,
   logout,
   login,
+  testing,
 };
 
 export default authService;
