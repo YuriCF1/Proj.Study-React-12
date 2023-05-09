@@ -5,13 +5,25 @@ import { useSelector } from "react-redux"; //Para pegar o dado do redux, da stor
 
 export const useAuth = () => {
   const { user } = useSelector((state) => state.auth);
+  const { tokenError } = useSelector((state) => state.auth);
 
   const [auth, setAuth] = useState(false);
+  const [tokenInvalido, setToeknInvalido] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // console.log('ErrorAuth', errorAuth);
+  console.log(tokenError);
+
+  if (typeof(tokenError) === Object) {
+    localStorage.removeItem("user");
+    setToeknInvalido(true)
+  }
+ 
+  //Testamdo se o token foi invalidado pelo prazo dos 7 dias
   useEffect(() => {
-    if (user && user !== "null") {
+    if (user && user !== "null" && tokenInvalido === false) {
       setAuth(true);
+      console.log('Auth: ', auth);
     } else {
       setAuth(false); //Até por conta do logout
     }
