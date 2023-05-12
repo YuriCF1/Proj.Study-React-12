@@ -101,6 +101,21 @@ export const likeAPhoto = createAsyncThunk(
   }
 );
 
+export const dislikeAPhoto = createAsyncThunk(
+  "photo/dislike",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.dislikeAPhoto(id, token);
+
+    // Check for errors, já que é um update. Principlamente
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 //Comentins a photo
 export const commentingAPhoto = createAsyncThunk(
   "photo/coment",
@@ -255,7 +270,7 @@ export const photoSlice = createSlice({
         state.photo.likes.push(action.payload.userId);
       }
 
-      //Chegando as fotos do feed, por exemplo. Para atualizar na tela
+      //Checando as fotos do feed, por exemplo. Para atualizar na tela
       state.photos.map((photo) => {
         if (photo._id === action.payload.photoId) {
           return photo.likes.push(action.payload.userId);
@@ -264,6 +279,31 @@ export const photoSlice = createSlice({
       });
     });
     builder.addCase(likeAPhoto.rejected, (state, action) => {
+      console.log(state, action);
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(dislikeAPhoto.fulfilled, (state, action) => {
+      console.log("Payload: ", typeof action.payload.userId);
+      console.log("Dislike slice");
+      state.loading = false; //É uma ação tão rápida, que  nem precisa de loading
+      state.success = true;
+      state.message = action.payload.message;
+      state.error = null;
+      // state.photo = action.payload;
+      if (state.photo.likes) {
+        state.photo.likes = state.photo.likes.filter((idAntigo) => idAntigo !== action.payload.userId);
+        // state.photo.likes.pop()
+      }
+      //Checando as fotos do feed, por exemplo. Para atualizar na tela
+      state.photos.map((photo) => {
+        if (photo._id === action.payload.photoId) {
+          return photo.likes.filter((id) => id !== action.payload.userId);
+        }
+        return photo;
+      });
+    });
+    builder.addCase(dislikeAPhoto.rejected, (state, action) => {
       console.log(state, action);
       state.loading = false;
       state.error = action.payload;
