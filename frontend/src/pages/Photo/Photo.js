@@ -19,6 +19,7 @@ import {
   likeAPhoto,
   resetMessage,
   commentingAPhoto,
+  dislikeAPhoto,
 } from "../../slices/photoSlice";
 
 import LikeContainer from "../../components/LikeContainer";
@@ -59,11 +60,15 @@ const Photo = () => {
     dispatch(resetMessage());
   }, [dispatch, id]);
 
-  console.log(photo);
-
   //Inserting a like
   const handleLike = () => {
     dispatch(likeAPhoto(photo._id));
+    resetMessageHook();
+  };
+
+  //Dislike
+  const handleDislike = () => {
+    dispatch(dislikeAPhoto(photo._id));
     resetMessageHook();
   };
 
@@ -73,13 +78,19 @@ const Photo = () => {
     return <p>Carregando...</p>;
   }
 
-  console.log(photo);
+  // console.log(photo);
   console.log(message);
+  console.log("Photo: ", photo);
 
   return (
     <div id="photo">
       <PhotoItem photo={photo} />
-      <LikeContainer photo={photo} user={user} handleLike={handleLike} />
+      <LikeContainer
+        photo={photo}
+        user={user}
+        handleLike={handleLike}
+        handleDislike={handleDislike}
+      />
       <div className="message-container">
         {error && <Message msg={message} type="error" />}
         {message && <Message msg={message} type="sucess" />}
