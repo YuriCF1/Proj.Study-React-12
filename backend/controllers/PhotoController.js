@@ -152,7 +152,7 @@ const likePhoto = async (req, res) => {
   const { id } = req.params;
   const reqUser = req.user;
   const photo = await Photo.findById(id);
-
+  console.log("tentando curtir");
   //Checks if the photo exists
   if (!photo) {
     res.status(404).json({ errors: ["Foto não encontrada"] });
@@ -172,6 +172,31 @@ const likePhoto = async (req, res) => {
   res
     .status(200)
     .json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida" });
+};
+
+// Disliking a photo
+const dislikingPhoto = async (req, res) => {
+  const { id } = req.params;
+  const reqUser = req.user;
+  const photo = await Photo.findById(id);
+  console.log("tentando curtir");
+  //Checks if the photo exists
+  if (!photo) {
+    res.status(404).json({ errors: ["Foto não encontrada"] });
+    return;
+  }
+
+  if (photo.likes.includes(reqUser._id)) {
+    console.log('req', req);
+    photo.likes = photo.likes.filter(
+      (idUser) => idUser.toString() !== reqUser._id.toString() //TRANSFORMANDO OBJECTS IDS PARA STRINGS PARA COMPARAÇÃO
+    );
+  }
+  await photo.save();
+
+  res
+    .status(200)
+    .json({ photoId: id, userId: reqUser._id, message: "Foto descurtida!" });
 };
 
 //Comment functionality
@@ -226,6 +251,7 @@ module.exports = {
   likePhoto,
   commentingPhoto,
   searchPhotos,
+  dislikingPhoto,
 };
 
 //Não há movimentação, apenas na praça, porém não muito
