@@ -90,6 +90,22 @@ const likeAPhoto = async (id, token) => {
     console.log(error);
   }
 };
+
+//Disliking a photo
+const dislikeAPhoto = async (id, token) => {
+  const config = requestConfig("DELETE", null, token);
+  try {
+    const res = await fetch(api + "/photos/dislike/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    console.log("res:", res);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Add a Coment to a photo
 const comentAPhoto = async (data, id, token) => {
   const config = requestConfig("PUT", data, token);
@@ -143,6 +159,7 @@ const photoService = {
   comentAPhoto,
   getAllPhotos,
   searchPhotos,
+  dislikeAPhoto,
 };
 
 export default photoService;
