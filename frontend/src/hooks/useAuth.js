@@ -12,9 +12,9 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   // console.log('ErrorAuth', errorAuth);
-  console.log(tokenError);
+  console.log('ToeknError: ', tokenError);
 
-  if (typeof(tokenError) === Object) {
+  if (typeof(tokenError) === 'object') {
     localStorage.removeItem("user");
     setToeknInvalido(true)
   }
