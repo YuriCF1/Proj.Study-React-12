@@ -10,7 +10,8 @@ const jwtSecret = process.env.JWT_SECRET;
 //Generate user token
 const generateToken = (id) => {
   return jwt.sign({ id }, jwtSecret, {
-    expiresIn: "7d", //Fazendo logout automático depois de 7dias
+    expiresIn: "10s", //Fazendo logout automático depois de 7dias
+    // expiresIn: "7d", //Fazendo logout automático depois de 7dias
   });
 };
 
