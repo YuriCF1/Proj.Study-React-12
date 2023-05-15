@@ -19,11 +19,15 @@ import Profile from "./pages/Profile/Profile";
 import Photo from "./pages/Photo/Photo";
 import Search from "./pages/Search/Search";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { testing } from "./slices/authSlice";
 import { useDispatch } from "react-redux";
 
 function App() {
+  const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
+  const [localAuth, setLocalAuth] = useState(auth)
+
+  console.log('AUTH APP MUDADO_____________________________________');
   const dispatch = useDispatch();
 
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
@@ -31,7 +35,11 @@ function App() {
   //   dispatch(testing());
   // }, []);
 
-  const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
+
+  useEffect(() => {
+    setLocalAuth(auth)
+  }, [auth])
+
   if (loading) {
     return <p>Carregando</p>;
   }
@@ -45,32 +53,32 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={auth ? <Home /> : <Navigate to="/login" />}
+              element={localAuth ? <Home /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/profile"
-              element={auth ? <EditProfile /> : <Navigate to="/login" />}
+              element={localAuth ? <EditProfile /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/photos/:id"
-              element={auth ? <Photo /> : <Navigate to="/login" />}
+              element={localAuth ? <Photo /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/users/:id"
-              element={auth ? <Profile /> : <Navigate to="/login" />}
+              element={localAuth ? <Profile /> : <Navigate to="/login" />}
             ></Route>
-            {/* <Route path="/" element={!auth ? <Login /> : <Navigate to="/" />} /> */}
+            {/* <Route path="/" element={!localAuth ? <Login /> : <Navigate to="/" />} />  */}
             <Route
               path="/login"
-              element={!auth ? <Login /> : <Navigate to="/" />}
+              element={!localAuth ? <Login /> : <Navigate to="/" />}
             ></Route>
             <Route
               path="/register"
-              element={!auth ? <Register /> : <Navigate to="/" />}
+              element={!localAuth ? <Register /> : <Navigate to="/" />}
             ></Route>
             <Route
               path="/search"
-              element={auth ? <Search /> : <Navigate to="/login" />}
+              element={localAuth ? <Search /> : <Navigate to="/login" />}
             ></Route>
           </Routes>
         </div>
