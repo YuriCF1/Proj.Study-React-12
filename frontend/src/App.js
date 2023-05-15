@@ -32,7 +32,6 @@ function App() {
   // }, []);
 
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
-
   if (loading) {
     return <p>Carregando</p>;
   }
@@ -60,6 +59,7 @@ function App() {
               path="/users/:id"
               element={auth ? <Profile /> : <Navigate to="/login" />}
             ></Route>
+            {/* <Route path="/" element={!auth ? <Login /> : <Navigate to="/" />} /> */}
             <Route
               path="/login"
               element={!auth ? <Login /> : <Navigate to="/" />}
