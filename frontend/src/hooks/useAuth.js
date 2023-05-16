@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux"; //Para pegar o dado do redux, da store.js do contexto auth
 
 export const useAuth = () => {
+  const userLocal = localStorage.getItem("user");
   const { user } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.photos);
   const { tokenError } = useSelector((state) => state.auth);
 
   const [auth, setAuth] = useState(false);
@@ -12,23 +14,34 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   // console.log('ErrorAuth', errorAuth);
-  console.log('ToeknError: ', tokenError);
+  // console.log('ToeknError: ', tokenError);
 
-  if (typeof(tokenError) === 'object') {
-    localStorage.removeItem("user");
-    setToeknInvalido(true)
-  }
+  // if (typeof(tokenError) === 'object') {
+  //   localStorage.removeItem("user");
+  //   setToeknInvalido(true)
+  // }
  
+  // console.log('user authhook: ',user);
+
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
   useEffect(() => {
-    if (user && user !== "null" && tokenInvalido === false) {
+    // console.log(userLocal);
+    // console.log(typeof(userLocal));
+    // console.log(userLocal !== null);
+    console.log(user);
+    console.log(error);
+    console.log(typeof(error));
+    console.log('Typeof: ', !typeof(error) == "string");
+    // if (typeof(error) !== "string" && user && user !== "null") {
+    if (user && user !== "null") {
+      console.log('Auth HOOK TRUE?: ', auth);
       setAuth(true);
-      console.log('Auth: ', auth);
     } else {
+      console.log('Auth HOOK FALSE?: ', auth);
       setAuth(false); //Até por conta do logout
     }
 
     setLoading(false);
-  }, [user]); //Sempre que o usuário for alterado
+  }, [user, userLocal]); //Sempre que o usuário for alterado
   return { auth, loading };
 };
