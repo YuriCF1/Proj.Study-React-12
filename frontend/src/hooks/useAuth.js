@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 //CENTRALIZANDO A LÓGICA PARA EU NÃO TER QUE USAR O REDUX EM TODOS OS COMPONENTES
 
-import { useSelector } from "react-redux"; //Para pegar o dado do redux, da store.js do contexto auth
+import { useDispatch, useSelector } from "react-redux"; //Para pegar o dado do redux, da store.js do contexto auth
+
+import { resetError, resetSliceState } from "../slices/photoSlice";
 
 export const useAuth = () => {
   const userLocal = localStorage.getItem("user");
@@ -13,6 +15,8 @@ export const useAuth = () => {
   const [tokenInvalido, setToeknInvalido] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const dispatch = useDispatch()
+
   // console.log('ErrorAuth', errorAuth);
   // console.log('ToeknError: ', tokenError);
 
@@ -20,7 +24,7 @@ export const useAuth = () => {
   //   localStorage.removeItem("user");
   //   setToeknInvalido(true)
   // }
- 
+
   // console.log('user authhook: ',user);
 
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
@@ -29,16 +33,21 @@ export const useAuth = () => {
     // console.log(typeof(userLocal));
     // console.log(userLocal !== null);
     console.log(user);
-    console.log(error);
-    console.log(typeof(error));
-    console.log('Typeof: ', !typeof(error) == "string");
+    console.log('Error: ', error);
+    console.log(typeof error);
+    let tipoError = typeof error === "object";
+
+    console.log("Type let", tipoError);
+    console.log("Typeof: ", !typeof error == "string");
     // if (typeof(error) !== "string" && user && user !== "null") {
-    if (!typeof(error) == "string" && user && user !== "null") {
-      console.log('Auth HOOK TRUE?: ', auth);
+    if (tipoError === true && user && user !== "null") {
+      console.log("Auth HOOK TRUE?: ", auth);
       setAuth(true);
     } else {
-      console.log('Auth HOOK FALSE?: ', auth);
+      console.log("Auth HOOK FALSE?: ", auth);
       setAuth(false); //Até por conta do logout
+      dispatch(resetError())
+      console.log('Error após reset: ', error);
     }
 
     setLoading(false);
