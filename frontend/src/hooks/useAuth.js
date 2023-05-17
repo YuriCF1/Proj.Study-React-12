@@ -33,7 +33,7 @@ export const useAuth = () => {
     console.log(typeof(error));
     console.log('Typeof: ', !typeof(error) == "string");
     // if (typeof(error) !== "string" && user && user !== "null") {
-    if (user && user !== "null") {
+    if (!typeof(error) == "string" && user && user !== "null") {
       console.log('Auth HOOK TRUE?: ', auth);
       setAuth(true);
     } else {
