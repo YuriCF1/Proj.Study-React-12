@@ -9,7 +9,7 @@ import LikeContainer from "../../components/LikeContainer";
 import PhotoItem from "../../components/PhotoItem";
 
 //React Router
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 //Custom hook
 import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
@@ -18,16 +18,24 @@ import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux
-import { getAllPhotos, likeAPhoto } from "../../slices/photoSlice";
+import {
+  getAllPhotos,
+  likeAPhoto,
+  resetSliceState,
+} from "../../slices/photoSlice";
+
+import { useAuth } from "../../hooks/useAuth";
 
 const Home = () => {
+  const { auth } = useAuth();
   const dispatch = useDispatch();
+
   const resetMessage = useResetComponentMessage(dispatch);
   const { user } = useSelector((state) => state.auth);
-
   const { photos, loading } = useSelector((state) => state.photos);
 
-  console.log(photos);
+  // console.log(photos);
+  console.log("AUTH HOME: ", auth);
 
   //Load all photos
   useEffect(() => {
