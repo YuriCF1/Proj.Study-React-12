@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import photoService from "../services/photoService";
+import { useSelector } from "react-redux";
 
 const initialState = {
   photos: [],
@@ -145,8 +146,12 @@ export const getAllPhotos = createAsyncThunk(
     //IMPORTANTE: _ é quando os dados não será enviados.
     const token = thunkAPI.getState().auth.user.token;
     const data = await photoService.getAllPhotos(token);
-    console.log(data);
-    console.log("Fotos");
+
+    if (data.errors) {
+      localStorage.removeItem("user");
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
     return data;
   }
 );
@@ -169,11 +174,15 @@ export const photoSlice = createSlice({
     resetMessage: (state) => {
       state.message = null;
     },
+    resetError: (state) => {
+      console.log('Error RESET!!??');
+      state.error = null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(publishPhoto.pending, (state) => {
       state.loading = true;
-      state.error = false;
+      state.error = null;
     });
     builder.addCase(publishPhoto.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -292,7 +301,9 @@ export const photoSlice = createSlice({
       state.error = null;
       // state.photo = action.payload;
       if (state.photo.likes) {
-        state.photo.likes = state.photo.likes.filter((idAntigo) => idAntigo !== action.payload.userId);
+        state.photo.likes = state.photo.likes.filter(
+          (idAntigo) => idAntigo !== action.payload.userId
+        );
         // state.photo.likes.pop()
       }
       //Checando as fotos do feed, por exemplo. Para atualizar na tela
@@ -336,10 +347,19 @@ export const photoSlice = createSlice({
       state.error = false;
     });
     builder.addCase(getAllPhotos.fulfilled, (state, action) => {
+      console.log("PASSOU");
       state.loading = false;
       state.success = true;
       state.error = null;
       state.photos = action.payload;
+    });
+    builder.addCase(getAllPhotos.rejected, (state, action) => {
+      console.log("PASSOU NAO");
+      state.loading = false;
+      state.success = false;
+      state.error = action.payload;
+      state.photos = null;
+      // localStorage.removeItem("user");
     });
     builder.addCase(searchPhotos.pending, (state) => {
       state.loading = true;
@@ -354,7 +374,7 @@ export const photoSlice = createSlice({
   },
 });
 
-export const { resetMessage } = photoSlice.actions;
+export const { resetMessage, resetError } = photoSlice.actions;
 export default photoSlice.reducer;
 
 /*NOTAS: 
