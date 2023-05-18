@@ -16,9 +16,14 @@ const authGuard = async (req, res, next) => {
     const verified = jwt.verify(token, jwtSecret);
     req.user = await User.findById(verified.id).select("-password"); //Removendo a senha da requisição
 
+    // if (verified.exp < Date.now() / 1000) {
+    //   return res.status(401).json({ errors: ["O token expirou"] });
+    // }
+
     next();
-  } catch (error) {
-    res.status(401).json({ errors: ["Token inválido!"] });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ errors: ["O Token é inválido!"] });
   }
 };
 
