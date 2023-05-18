@@ -27,7 +27,7 @@ function App() {
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
   const [localAuth, setLocalAuth] = useState(auth)
 
-  console.log('AUTH APP MUDADO_____________________________________');
+  console.log('AUTH APP MUDADO_____________________________________', auth);
   const dispatch = useDispatch();
 
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
@@ -53,28 +53,28 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={localAuth ? <Home /> : <Navigate to="/login" />}
+              element={auth ? <Home /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/profile"
-              element={localAuth ? <EditProfile /> : <Navigate to="/login" />}
+              element={auth ? <EditProfile /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/photos/:id"
-              element={localAuth ? <Photo /> : <Navigate to="/login" />}
+              element={auth ? <Photo /> : <Navigate to="/login" />}
             ></Route>
             <Route
               path="/users/:id"
-              element={localAuth ? <Profile /> : <Navigate to="/login" />}
+              element={auth ? <Profile /> : <Navigate to="/login" />}
             ></Route>
-            {/* <Route path="/" element={!localAuth ? <Login /> : <Navigate to="/" />} />  */}
+            {/* <Route path="/" element={!auth ? <Login /> : <Navigate to="/" />} />  */}
             <Route
               path="/login"
-              element={!localAuth ? <Login /> : <Navigate to="/" />}
+              element={!auth ? <Login /> : <Navigate to="/" />}
             ></Route>
             <Route
               path="/register"
-              element={!localAuth ? <Register /> : <Navigate to="/" />}
+              element={!auth ? <Register /> : <Navigate to="/" />}
             ></Route>
             <Route
               path="/search"
