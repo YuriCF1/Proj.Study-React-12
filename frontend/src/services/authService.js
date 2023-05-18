@@ -1,23 +1,26 @@
 import { api, requestConfig } from "../utils/config";
 
 //Testing if the token expired after the 7 days limit
-const testing = async (token) => {
-  if (token) {
-    const config = requestConfig("GET", null, token);
+// const testing = async (token) => {
+//   if (token) {
+//     const config = requestConfig("GET", null, token);
 
-    try {
-      const res = await fetch(api + "/users/", config)
-        .then((res) => res.json())
-        .catch((err) => err);
+//     try {
+//       const res = await fetch(api + "/users/", config)
+//         .then((res) => res.json())
+//         .catch((err) => err);
 
-      console.log(res);
-      return res;
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
-};
+//       // console.log("Auth res", res);
+//       return res;
+//       //Enviando resposta apenas se não for syntaxError
+//       //   if (!res.includes("SyntaxError")) {
+//       //   return ;
+//       // }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// };
 
 //Register an user
 const register = async (data) => {
@@ -71,7 +74,7 @@ const authService = {
   register,
   logout,
   login,
-  testing,
+  // testing,
 };
 
 export default authService;

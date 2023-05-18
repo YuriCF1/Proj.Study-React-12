@@ -120,15 +120,15 @@ export const authSlice = createSlice({
       state.user = null;
     });
     //Testamdo se o token foi invalidado pelo prazo dos 7 dias
-    builder.addCase(testing.fulfilled, (state, action) => {
-      console.log("test");
-      state.loading = false;
-      if (typeof tokenError === Object) {
-        state.tokenError = action.payload;
-      } else {
-        state.tokenError = false;
-      }
-    });
+    // builder.addCase(testing.fulfilled, (state, action) => {
+    //   console.log("test");
+    //   state.loading = false;
+    //   if (typeof tokenError === Object) {
+    //     state.tokenError = action.payload;
+    //   } else {
+    //     state.tokenError = false;
+    //   }
+    // });
   },
 });
 
