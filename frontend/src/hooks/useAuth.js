@@ -9,37 +9,23 @@ export const useAuth = () => {
   const userLocal = localStorage.getItem("user");
   const { user } = useSelector((state) => state.auth);
   const { error } = useSelector((state) => state.photos);
-  const { tokenError } = useSelector((state) => state.auth);
+  // const { tokenError } = useSelector((state) => state.auth);
 
   const [auth, setAuth] = useState(false);
-  const [tokenInvalido, setToeknInvalido] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch()
 
-  // console.log('ErrorAuth', errorAuth);
-  // console.log('ToeknError: ', tokenError);
-
-  // if (typeof(tokenError) === 'object') {
-  //   localStorage.removeItem("user");
-  //   setToeknInvalido(true)
-  // }
-
-  // console.log('user authhook: ',user);
-
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
   useEffect(() => {
-    // console.log(userLocal);
-    // console.log(typeof(userLocal));
-    // console.log(userLocal !== null);
     console.log(user);
     console.log('Error: ', error);
     console.log(typeof error);
+
     let tipoError = typeof error === "object";
 
     console.log("Type let", tipoError);
     console.log("Typeof: ", !typeof error == "string");
-    // if (typeof(error) !== "string" && user && user !== "null") {
     if (tipoError === true && user && user !== "null") {
       console.log("Auth HOOK TRUE?: ", auth);
       setAuth(true);
