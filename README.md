@@ -38,3 +38,4 @@ react-redux = Instalando redux
 
 [v] - Backend
 [v] - Frontend iniciado recentemente
+[v] - Resolvendo bug do curso, desfazendo autentificação após expiração do token
