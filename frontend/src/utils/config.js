@@ -1,7 +1,7 @@
 // export const api = "http://localhost:5000/api";
 // export const uploads = "http://localhost:5000/uploads";
 export const api = "https://reactgram-backend-yurifdev.onrender.com/api";
-export const uploads = "https://reactgram-backend-yurifdev.onrender.com/uplods"; reactgram-backend-yurifdev
+export const uploads = "https://reactgram-backend-yurifdev.onrender.com/uploads"; //reactgram-backend-yurifdev
 
 export const requestConfig = (method, data, token = null, image = null) => {
   let config;
