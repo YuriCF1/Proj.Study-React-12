@@ -8,7 +8,7 @@ import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 // import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 
 //Files
-// import { uploads } from "../../utils/config";
+import { uploads } from "../../utils/config";
 
 //Components
 import Message from "../../components/Message";
@@ -219,7 +219,8 @@ const Profile = () => {
       <div className="user-photos">
         <h2>Fotos publicadas</h2>
         <div className="photos-container">
-          {user && photos &&
+          {user &&
+            photos &&
             photos.map((photo) => (
               <div className="photo" key={photo._id}>
                 {photo.image && (
@@ -227,7 +228,7 @@ const Profile = () => {
                     src={`${uploads}/photos/${photo.image}`}
                     alt={photo.title}
                   />
-                )} 
+                )}
                 {id === userAuth._id ? (
                   <div className="actions">
                     <Link className="btn" to={`/photos/${photo._id}`}>
