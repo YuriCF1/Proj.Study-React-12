@@ -1,7 +1,7 @@
 // import React from 'react'
 
 //Css
-import Profile from "./Profile.css";
+import "./Profile.css";
 
 //Icons
 import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
