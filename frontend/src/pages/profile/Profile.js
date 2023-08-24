@@ -8,7 +8,7 @@ import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 // import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 
 //Files
-import { uploads } from "../../utils/config";
+// import { uploads } from "../../utils/config";
 
 //Components
 import Message from "../../components/Message";
