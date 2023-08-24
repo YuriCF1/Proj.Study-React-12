@@ -15,6 +15,7 @@ import Register from "./pages/Auth/Register";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import EditProfile from "./pages/EditProfile/EditProfile";
+// import Profile from "./pages/Profile/Profile";
 import Profile from "./pages/Profile/Profile";
 import Photo from "./pages/Photo/Photo";
 import Search from "./pages/Search/Search";
@@ -25,9 +26,9 @@ import { useDispatch } from "react-redux";
 
 function App() {
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
-  const [localAuth, setLocalAuth] = useState(auth)
+  const [localAuth, setLocalAuth] = useState(auth);
 
-  console.log('AUTH APP MUDADO_____________________________________', auth);
+  console.log("AUTH APP MUDADO_____________________________________", auth);
   const dispatch = useDispatch();
 
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
@@ -35,10 +36,9 @@ function App() {
   //   dispatch(testing());
   // }, []);
 
-
   useEffect(() => {
-    setLocalAuth(auth)
-  }, [auth])
+    setLocalAuth(auth);
+  }, [auth]);
 
   if (loading) {
     return <p>Carregando</p>;
