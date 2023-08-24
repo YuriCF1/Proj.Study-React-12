@@ -8,7 +8,7 @@ import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 // import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 
 //Files
-// import { uploads } from "../../utils/config";
+import { uploads } from "../../utils/config";
 
 //Components
 import Message from "../../components/Message";
@@ -40,7 +40,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getUserDetails(id));
     dispatch(getUserPhotos(id));
-    console.log(photos);
+    // console.log(photos);
   }, [dispatch, id]);
 
   //Another profile
