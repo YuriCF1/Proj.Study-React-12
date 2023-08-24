@@ -15,7 +15,6 @@ import Register from "./pages/Auth/Register";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import EditProfile from "./pages/EditProfile/EditProfile";
-// import Profile from "./pages/Profile/Profile";
 import Profile from "./pages/Profile/Profile";
 import Photo from "./pages/Photo/Photo";
 import Search from "./pages/Search/Search";
