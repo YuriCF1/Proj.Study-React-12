@@ -13,10 +13,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extend: false })); //Define o middleware para processar dados de formulário recebidos nas requisições.
 
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://reactgram-frontend--yurifdev.onrender.com'
+  "http://localhost:3000",
+  "https://reactgram-frontend--yurifdev.onrender.com",
+  "https://reactgram-frontend-yurifdev-x4zd.onrender.com/",
 ];
-
 
 //Solving cors || Executando requisições pelo mesmo domínio
 app.use(cors({ credentials: true, origin: allowedOrigins })); //crediantals: true = o servidor pode enviar e receber cookies e cabeçalhos de autenticação.
