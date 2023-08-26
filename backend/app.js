@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extend: false })); //Define o middleware para proce
 const allowedOrigins = [
   "http://localhost:3000",
   "https://reactgram-frontend--yurifdev.onrender.com",
-  "https://reactgram-frontend-yurifdev-x4zd.onrender.com/",
+  "https://reactgram-frontend-yurifdev-x4zd.onrender.com",
 ];
 
 //Solving cors || Executando requisições pelo mesmo domínio
