@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extend: false })); //Define o middleware para proce
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://reactgram-frontend-yurifdev.onrender.com'
+  'https://reactgram-frontend--yurifdev.onrender.com'
 ];
 
 
