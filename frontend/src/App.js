@@ -11,7 +11,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import EditProfile from "./pages/EditProfile/EditProfile";
-import Profile from "./pages/Profile/Profile";
+import Profile from "./pages/MainProfile/Profile";
 import Photo from "./pages/Photo/Photo";
 import Search from "./pages/Search/Search";
 
