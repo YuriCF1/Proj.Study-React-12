@@ -22,7 +22,7 @@ Um grande aprendizado do projeto foi lidar com quisitos de segurança como a lib
 - NodeJS
 - Express
   <br/>
-(Para mais detalhes, clique [aqui](README.md#Backend))
+Para mais detalhes, clique [aqui](README.md#backend)
 
 ### Deploy do projeto: https://reactgram-frontend-yurifdev-x4zd.onrender.com/login
 
@@ -67,7 +67,7 @@ Esse projeto está sob licença. Todos os direitos autorais reservados.
 
 ## O projeto foi iniciado baixando os pacotes do npm
 
-## Backend 💽
+## [Backend](#backend) 💽
 
 #### Utilizando o comando: npm install bcryptjs cors dotenv express express-validatenor jsonwebtoken mongoose multer
 
