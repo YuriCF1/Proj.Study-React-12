@@ -21,7 +21,7 @@ Um grande aprendizado do projeto foi lidar com quisitos de segurança como a lib
 - MongoDB
 - NodeJS
 - Express
-(Para mais detalhes, clique [aqui](README.md##Backend))
+(Para mais detalhes, clique [aqui](README.md#backend))
 
 ### Deploy do projeto: https://reactgram-frontend-yurifdev-x4zd.onrender.com/login
 
