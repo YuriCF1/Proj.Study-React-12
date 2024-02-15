@@ -27,16 +27,14 @@ function App() {
   const { auth, loading } = useAuth(); //Já começa como autenticado por conta do slice, pois ele já pega do localStorage antes de fazer o initialState
   const [localAuth, setLocalAuth] = useState(auth);
 
-  console.log("AUTH APP MUDADO_____________________________________", auth);
   const dispatch = useDispatch();
-
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
   // useEffect(() => {
-  //   dispatch(testing());
-  // }, []);
-
-  useEffect(() => {
-    setLocalAuth(auth);
+    //   dispatch(testing());
+    // }, []);
+    
+    useEffect(() => {
+      setLocalAuth(auth);
   }, [auth]);
 
   if (loading) {

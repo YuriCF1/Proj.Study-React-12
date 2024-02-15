@@ -18,15 +18,7 @@ export const useAuth = () => {
 
   //Testamdo se o token foi invalidado pelo prazo dos 7 dias
   useEffect(() => {
-    console.log(user);
-    console.log('Error: ', error);
-    console.log(typeof error);
-
-    let tipoError = typeof error === "object";
-
-    console.log("Type let", tipoError);
-    console.log("Typeof: ", !typeof error == "string");
-    if (tipoError === true && user && user !== "null") {
+    if (user && user !== "null") {
       console.log("Auth HOOK TRUE?: ", auth);
       setAuth(true);
     } else {
